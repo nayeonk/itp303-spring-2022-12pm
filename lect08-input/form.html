@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>JS</title>
+	<style>
+		form {
+			width: 500px;
+		}
+		.form-row {
+			margin-bottom: 10px;
+			display: flex;
+		}
+		label {
+			padding-right: 10px;
+			width: 60px;
+		}
+		input {
+			width: 150px;
+			height: 20px;
+		}
+		.error {
+			color: red;
+			font-style: italic;
+			margin-left: 10px;
+			visibility: hidden;
+		}
+	</style>
+</head>
+<body>
+	<h1 id="text">Form</h1>
+
+	<form id="form" method="" action="">
+
+		<div class="form-row">
+			<label for="name-input">Name: </label>
+			<input type="text" id="name-input" name="name-input" placeholder="Tommy Trojan" />
+			<div class="error">Error message</div>
+		</div>
+
+		<div class="form-row">
+			<label for="age-input">Age: </label>
+			<input type="text" id="age-input" name="age-input"/> 
+			<div class="error">Error message</div>
+		</div>
+
+		Year
+		<select name="year">
+			<option>Freshman</option>
+			<option>Sophomore</option>
+		</select>
+
+		<div class="form-row">
+			<button type="submit" id="go-button">Go</button>
+		</div>
+
+	</form>
+
+	<script>
+		// NUMBERS
+		let number = 7;
+		let number2 = 5.4;
+		console.log( number + number2 );
+
+		let letter = "5";
+		console.log( number + letter);
+		console.log( number * number2);
+		console.log(0.1 + 0.2);
+
+		console.log( 1/2 );
+
+		console.log(0/"hello");
+
+		console.log( 1 / 0 );
+
+		// Can convert numbers to strings and vice versa
+		let anumber = "5555";
+		let convertednumber = parseInt(anumber);
+		console.log(convertednumber);
+
+		console.log( convertednumber + 3 );
+
+		// Math library in JS
+		console.log(Math.PI);
+
+		// Rounding wih Math
+		console.log(Math.ceil(1.1));
+		console.log(Math.floor(1.1));
+		console.log(Math.round(1.1));
+
+
+		// STRINGS IN JS
+		let name = "nayeon";
+		let name2 = 'nayeon';
+		// this is new
+		let name3 = `nayeon`;
+
+		console.log(name + " " + name2);
+		console.log(`<strong>${name3}</strong>'s`);
+
+		console.log(name.length);
+		console.log(name[0]);
+		console.log(name.indexOf("n"));
+		console.log(name.indexOf("Z"));
+		console.log(name.lastIndexOf("n"));
+		console.log(name.toUpperCase());
+		console.log(name.toLowerCase());
+
+		// .slice() - gives you a piece of a string
+		let fruit = "apple";
+		console.log( fruit.slice(0,2) );
+		console.log( "sliced " + fruit.slice(2) );
+		console.log( "negative " + fruit.slice(-3, -1) );
+
+		// .substring() - same as .slice() but no negatives are allowed
+
+		// .substr() - returns the part of the string from start to given length
+		console.log(fruit.substr(0,3));
+		
+		// Two ways to detect user input
+
+		// 1. onblur - detects when user navigates away from an input element
+		// document.querySelector("#name-input").onblur = function() {
+		// 	console.log("user typed something");
+		// }
+		// 2. oninput - detects when user is typing anything into the user input tag
+		document.querySelector("#name-input").oninput = function() {
+			console.log("typing!!");
+		}
+
+
+		// Event to handle form submission
+		// aka. when the submit button is pressed
+		document.querySelector("#form").onsubmit = function(event) {
+
+			// Prevent the form from being submitted
+			event.preventDefault();
+			console.log("form is submitted!");
+
+			// Validate the user inputs
+			// Check that the name has at least 1 character
+
+			// Grab the user input .value gives us what the user typed in
+			// .trim() removes any leading or trailing whitespaces
+			let userInput = document.querySelector("#name-input").value.trim();
+
+			console.log(userInput);
+			
+			if( userInput.length < 1) {
+				console.log("name is empty!!");
+
+				// Change the message of the error
+				document.querySelector("#name-input").nextElementSibling.innerHTML = "Name cannot be empty";
+
+				// Change the visibility of the error
+				document.querySelector("#name-input").nextElementSibling.style.visibility = "visible";
+
+			}
+			else {
+				// Change the visibility of the error
+				document.querySelector("#name-input").nextElementSibling.style.visibility = "hidden";
+			}
+
+		}
+
+
+
+	</script>
+
+</body>
+</html>
