@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+	<title>Creating Elements</title>
+
+	<style>
+		.red {
+			color: red;
+		}
+	</style>
+
+</head>
+<body>
+	<div class="container">
+		<h1 class="my-4">Create elements dynamically </h1>
+
+		<form class="row row-cols-md-auto g-3" id="simple-form">
+			<div class="col-12">
+				<input type="text" class="form-control" id="textInput" placeholder="Add some text" />
+			</div>
+
+			<div class="col-12">
+				<button type="submit" class="btn btn-primary">Add</button>
+				<button type="button" class="btn btn-success" id="btn-string">Add using string</button>
+				<button type="button" class="btn btn-danger" id="btn-delete">Delete All</button>
+			</div>
+		</form>
+
+
+		<div class="row">
+			<div class="col-12 mt-4">
+				<div id="paragraphs-container">
+					<p class="red">I am a paragraph</p>
+					<p class="red">I am a second paragraph</p>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+
+	<script>
+		// .onsubmit captures both when a user clicks on the button to submit the form AND when a user pressed "Enter" on their keyboard to submit the form
+		document.querySelector("#simple-form").onsubmit = function(event) {
+			event.preventDefault();
+			// console.log("submitted!");
+			
+			// Grab the user's input
+			let userInput = document.querySelector("#textInput").value;
+			// document.getElementById("textInput").value;
+
+			console.log(userInput);
+
+			if(userInput.length > 0){
+				// Create a <p> tag
+				let pElement = document.createElement("p");
+				console.log(pElement);
+				// Give it a class name "red"
+				pElement.classList.add("red");
+				// Fill out the text with userInput
+				pElement.innerHTML = userInput;
+				pElement.id = "p1";
+				console.log(pElement);
+
+				// Append this newly created <p> tag to an existing HTML element
+				let paragraphContainer = document.querySelector("#paragraphs-container");
+				// .appendChild() adds this paragraph to the END.
+				paragraphContainer.appendChild(pElement);
+
+				// Clear the user input on the input tag
+				document.querySelector("#textInput").value = "";
+
+			}
+
+		}
+
+		document.querySelector("#btn-string").onclick = function() {
+			// Save the user's input
+			let userInput = document.querySelector("#textInput").value.trim();
+
+			if(userInput.length > 0) {
+				// Create HTML elements with string
+				let htmlString = `<p class="red">${userInput}</p>`;
+				// let htmlString = "<p>" + userInput + "</p>";
+
+				// document.querySelector("#paragraphs-container").appendChild(htmlString);
+				document.querySelector("#paragraphs-container").innerHTML += htmlString;
+			}
+		}
+
+		document.querySelector("#btn-delete").onclick = function() {
+			// Get the parent of whatever we want to delete
+			let paragraphContainer = document.querySelector("#paragraphs-container");
+
+			// .hasChildNodes() - returns true if parent has children
+			// - returns false if parent does not have children
+
+			// can pass document.querySelector() to specify the child's id
+			// while(paragraphContainer.hasChildNodes()) {
+			// 	paragraphContainer.removeChild(paragraphContainer.lastChild);
+			// }
+
+			// Another way to remove all children
+			paragraphContainer.replaceChildren();
+			
+		}
+
+	</script>
+</body>
+</html>

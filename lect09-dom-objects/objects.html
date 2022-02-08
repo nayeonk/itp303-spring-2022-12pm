@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>JS Objects</title>
+	<style>
+		#people-list, #people-list-with-string {
+			border: 1px solid black;
+			margin-bottom: 20px;
+		}
+	</style>
+	
+</head>
+<body>
+	<h1>Show All People</h1>
+	<div id="people-list">
+	</div>
+	<div id="people-list-with-string">
+	</div>
+
+	<script>
+		// Objects in JS
+		// TWO ways to create an object in JS
+
+		// 1. Literal syntax
+		let person1 = {
+			name: "Michael Scott",
+			age: 44,
+			positions: [
+				"Sales Rep",
+				"Regional Manager",
+				"CEO"
+			],
+			// Objects inside of objects is allowed
+			phone: {
+				work: "123-123-1234",
+				cell: "123-123-1234"
+			},
+			// functions
+			greet: function() {
+				console.log("Hi! My name is " + this.name );
+			}
+		}
+
+		console.log(person1);
+
+		// Can easily get any value about this person object
+		console.log(person1.name);
+		console.log(person1.age);
+		console.log(person1.positions[0]);
+		console.log(person1.phone.cell);
+		person1.greet();
+
+		let person2 = {
+			name: "Dwight Schrute",
+			age: 40,
+			phone: {
+				cell: "123-123-1234",
+				work: "555-555-5555"
+			},
+			positions: [
+				"Assistant to the Regional Manager",
+				"Sales Rep"
+			]
+		}
+
+
+		console.log(person2.name);
+
+
+		// 2. Use Constructor Function Syntax to create objects
+		function Person (fullName, age) {
+			this.name = fullName;
+			this.age = age;
+			this.employer = "Dunder Mifflin";
+		}
+
+		// Create instances of the Person object
+		let jim = new Person("Jim Halpert", 35);
+		let pam = new Person("Pam Beesley", 31);
+
+		console.log(jim);
+		console.log(pam);
+		console.log(pam.age);
+		console.log(pam.name);
+
+		let peopleList = [];
+		peopleList.push(person1, person2, jim, pam);
+		console.log(peopleList);
+
+		// This is the parent <div> that holds all the p tags
+		let container = document.querySelector("#people-list");
+
+		// Run through the peopleList and create a <p> element for each person object
+		for(let i = 0; i < peopleList.length; i++) {
+			let pElement = document.createElement("p");
+			pElement.innerHTML = peopleList[i].name + " - " + peopleList[i].age;
+			// Append this newly created <p> tag to the parent element
+			container.appendChild(pElement);
+		}
+
+		// Using the HTML string way
+		let container2 = document.querySelector("#people-list-with-string");
+		for(let i = 0; i<peopleList.length; i++) {
+			let HTMLstring = `<p>${peopleList[i].name} - ${peopleList[i].age}</p>`;
+
+			// Append
+			container2.innerHTML += HTMLstring;
+		}
+
+	</script>
+</body>
+</html>
