@@ -164,7 +164,18 @@
 			<div class="col-3 text-right">Subscribe:</div>
 			<div class="col-9">
 				<!-- Display Form Data Here -->
-				
+				<?php
+					if( isset($_POST["subscribe"]) && !empty($_POST["subscribe"])) {
+						// Foreach loop to iterate
+						foreach ( $_POST["subscribe"] as $sub ) {
+							echo $sub . ", ";
+						}
+					}
+					else {
+						// class text-danger is coming from bootstrap
+						echo "<div class='text-danger'>Not provided.</div>";
+					}
+				?>
 
 			</div>
 		</div> <!-- .row -->
