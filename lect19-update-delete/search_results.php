@@ -95,7 +95,8 @@ $mysqli->close();
 <?php while ( $row = $results->fetch_assoc() ) : ?>
 	<tr>
 		<td>
-			<a href="delete.php" class="btn btn-outline-danger delete-btn">
+			<!-- confirm() returns TRUE if user clicks on "Ok". returns FALSE if user clicks on "Cancel" -->
+			<a onclick="return confirm('Are you sure you want to delete this song?');" href="delete.php?track_id=<?php echo $row['track_id']; ?>&track_name=<?php echo $row['track']?>" class="btn btn-outline-danger delete-btn">
 				Delete
 			</a>
 		</td>
@@ -119,16 +120,5 @@ $mysqli->close();
 			</div> <!-- .col -->
 		</div> <!-- .row -->
 	</div> <!-- .container-fluid -->
-
-	<script>
-		// Some JS to pop up a message before user commits to deleting a track.
-		let deleteButtons = document.querySelectorAll(".delete-btn");
-
-		for( let i = 0; i < deleteButtons.length; i++ ) {
-			deleteButtons[i].onclick = function() {
-				// Show a popup here
-			}
-		}
-	</script>
 </body>
 </html>
