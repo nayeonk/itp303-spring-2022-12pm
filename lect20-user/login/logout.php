@@ -1,4 +1,10 @@
 <?php
+// When user clicks "Logout" they will get redirected to this page. This page will destroy session variables related to login.
+
+session_start(); // need to start a session before destroying a session
+// this function deletes all session variables
+session_destroy();
+
 ?>
 <!DOCTYPE html>
 <html>

@@ -1,6 +1,12 @@
 <?php
+// Must call this function at the top of the file to use sessions in this file
+//session_start();
 require '../config/config.php';
 	// User will use GET request to simply visit the page. If user is trying to login but submtiting username and password, it will make a POST request
+
+// Giant if statement here. If user is NOT logged in, do the usual things. Else, redirect them out of this page.
+
+if( !isset($_SESSION["logged_in"]) || !$_SESSION["logged_in"] )  {
 
 	// Check if username & password were submitted via the POST method. If so, the user is attempting to login.
 	if ( isset($_POST['username']) && isset($_POST['password']) ) {
@@ -37,9 +43,17 @@ require '../config/config.php';
 				echo $mysqli->error;
 				exit();
 			}
+			// If we ONE result back, it means the username/pw combo is correct!
+			if($results->num_rows == 1) {
+				// Log the user in. Save their info
+				$_SESSION["logged_in"] = true;
+				$_SESSION["username"] = $_POST["username"];
 
-			if($results->num_rows > 0) {
-				
+				// Redirect the user to the home page
+				// header() makes a GET request
+				// pass in the path that we want to redirect the user to.
+				// header("Location: https://www.google.com");
+				header("Location: ../song-db/index.php");
 			
 			}
 			else {
@@ -47,6 +61,11 @@ require '../config/config.php';
 			}
 		} 
 	}
+}
+else {
+	// Redirect the user out of this page
+	header("Location: ../song-db/index.php");
+}
 ?>
 <!DOCTYPE html>
 <html>

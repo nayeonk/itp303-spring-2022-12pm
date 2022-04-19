@@ -1,3 +1,8 @@
+<?php 
+	// Even if we're just GETting sessions, need to call session_start() first
+	// ALWAYS make session_start() first
+	session_start();
+?>
 <!DOCTYPE html>
 <html>
 <head>
